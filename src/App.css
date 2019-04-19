@@ -1,0 +1,70 @@
+.App {
+  text-align: center;
+}
+
+.App-logo {
+  animation: App-logo-spin infinite 20s linear;
+  height: 40vmin;
+  pointer-events: none;
+}
+
+.App-header {
+  background-color: #282c34;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  font-size: calc(10px + 2vmin);
+  color: white;
+}
+
+.App-link {
+  color: #61dafb;
+}
+
+@keyframes App-logo-spin {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+body {
+  /* background-color: #0357b7; */
+  background-color: black;
+  font-family: 'Bangers', cursive;
+  /* font-family: 'Faster One', cursive; */
+  /* font-family: 'Permanent Marker', cursive; */
+  /* font-family: 'Bungee Shade', cursive; */
+  /* font-family: 'Ranchers', cursive; */
+  background-image: url('https://images6.alphacoders.com/327/327321.jpg');
+  background-position: center;
+  background-size: cover;
+}
+
+h1, p {
+  color: red;
+  text-shadow: 2px 0 2px #fff, -2px 0 2px #fff, 0 -2px 2px #fff, 0 2px 2px #fff;
+}
+
+h1 {
+  font-size: 50px;
+}
+
+p {
+  font-size: 40px;
+}
+
+div {
+  margin-top: 0;
+  background-color: rgba(0, 0, 0, .4);
+
+}
+
+img {
+  border: 10px solid white;
+  border-radius: 5px;
+}
