@@ -1,15 +1,13 @@
 import React, { Component } from 'react';
 import Random from './Random';
 
-// const apiKey = process.env.REACT_APP_MARVEL_KEY;
 const supApiKey = process.env.REACT_APP_SUPERHERO_KEY;
 
 class Home extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            id: 0,
-            data: {},
+            data: null,
             url: ''
         }
     }
@@ -20,7 +18,6 @@ class Home extends Component {
           .then(response => response.json())
           .then(data => {
             this.setState({
-                id: data.id,
                 data: data,
                 url: data.image.url
             })
@@ -28,13 +25,16 @@ class Home extends Component {
       }
 
     render() {
-        console.log(this.state.url)
-        // console.log(this.state.data.image.url)
-        return (
+        if (this.state.data === null) {
+            return <h1>LOADING...</h1>;
+        } else {
+           return (
             <div>
                 <Random data={this.state.data}/>
             </div>
-        )
+        ) 
+        }
+        
     }
 }
 
