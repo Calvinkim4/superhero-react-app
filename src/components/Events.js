@@ -22,9 +22,6 @@ class Events extends Component {
             this.setState({
                 data: data.data.results,
                 offset: this.state.offset + 10
-                // title: data.data.results[1].title,
-                // description: data.data.results[1].description,
-                // thumbnail: data.data.results[1].thumbnail.path + "." + data.data.results[0].thumbnail.extension
             })
         })
     }
@@ -52,15 +49,6 @@ class Events extends Component {
                 <button onClick={this.getEvents}>More Events</button>
                 {events}
             </div>
-            // <div className='event'>
-            //     <img src={this.state.thumbnail} alt='event'/>
-            //     <div className='event-desc'>
-            //         <h1>{this.state.title}</h1>
-            //         <p>{this.state.description}</p>
-            //     </div>
-                
-                
-            // </div>
         )
     }
 }
