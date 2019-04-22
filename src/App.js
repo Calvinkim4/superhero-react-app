@@ -1,35 +1,32 @@
 import React, { Component } from 'react';
 import './App.css';
+import { Route, Link } from 'react-router-dom';
+import Home from './components/Home';
+import Characters from './components/Characters';
+import Events from './components/Events';
+import Comics from './components/Comics';
 
-const apiKey = process.env.REACT_APP_MARVEL_KEY;
+// const apiKey = process.env.REACT_APP_MARVEL_KEY;
+// const supApiKey = process.env.REACT_APP_SUPERHERO_KEY;
 
 class App extends Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      name: ''
-    }
-  }
-
-  componentDidMount() {
-    fetch(`http://gateway.marvel.com/v1/public/characters?name=Spider-Man&apikey=${apiKey}`)
-      .then(response => response.json())
-      .then(data => {
-        // console.log(data.data);
-        this.setState({
-          name: data.data.results[0].name,
-          description: data.data.results[0].description,
-          thumbnail: data.data.results[0].thumbnail.path + '.' + data.data.results[0].thumbnail.extension
-        })
-      })
-  }
 
   render() {
     return (
       <div className="App">
-        <h1>{this.state.name}</h1>
-        <p>{this.state.description}</p>
-        <img src={this.state.thumbnail} alt='spiderman'/>
+      <nav>
+        <Link to='/'><li>Home</li></Link>
+        <Link to='/Characters'><li>Characters</li></Link>
+        <Link to='/Events'><li>Events</li></Link>
+        <Link to='/Comics'><li>Comics</li></Link>
+      </nav>
+      
+        <main>
+          <Route path='/' exact component={Home} />
+          <Route path='/Characters' component={Characters} />
+          <Route path='/Events' component={Events} />
+          <Route path='/Comics' component={Comics} />
+        </main>
       </div>
     );
   }

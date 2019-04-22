@@ -43,6 +43,7 @@ body {
   background-image: url('https://images6.alphacoders.com/327/327321.jpg');
   background-position: center;
   background-size: cover;
+  background-repeat: no-repeat;
 }
 
 h1, p {
@@ -61,10 +62,30 @@ p {
 div {
   margin-top: 0;
   background-color: rgba(0, 0, 0, .4);
-
 }
 
 img {
   border: 10px solid white;
   border-radius: 5px;
+  width: 300px;
+  height: auto;
+}
+
+nav {
+  display: flex;
+  justify-content: center;
+}
+
+a {
+  flex-direction: row;
+  padding: 20px;
+  color: white;
+  text-decoration: none;
+  list-style: none;
+  font-size: 50px;
+}
+
+li {
+  color: white;
+  list-style: none;
 }
