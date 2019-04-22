@@ -2,27 +2,25 @@ import React from 'react';
 
 function Random(props) {
 
-    const { name, thumbnail, powerStats} = props;
+    const { data } = props;
 
-    if (props === undefined) {
-        return null;
+    if (props.data !== {}) {
+        return (
+            <div>
+                <h1>{data.name}</h1>
+                {/* <img src={data.image.url} alt='superhero' /> */}
+                {/* <ul>
+                    <li>Combat: {data.powerstats.combat}</li>
+                    <li>Durability: {data.powerstats.durability}</li>
+                    <li>Intelligence: {data.powerstats.intelligence}</li>
+                    <li>Power: {data.powerstats.power}</li>
+                    <li>Speed: {data.powerstats.speed}</li>
+                    <li>Strength: {data.powerstats.strength}</li>
+                </ul> */}
+            </div>
+            ) 
     } else {
-       return (
-        <div>
-            <h1>{name}</h1>
-                <img src={thumbnail} alt='superhero' />
-                <ul>
-                    <li>Combat: {powerStats.combat}</li>
-                    <li>Durability: {powerStats.durability}</li>
-                    <li>Intelligence: {powerStats.intelligence}</li>
-                    <li>Power: {powerStats.power}</li>
-                    <li>Speed: {powerStats.speed}</li>
-                    <li>Strength: {powerStats.strength}</li>
-                </ul>
-                {/* <p>{this.state.description}</p>
-                <img src={this.state.thumbnail} alt='spiderman'/> */}
-        </div>
-        ) 
+        return <h1>Loading...</h1>;
     }
     
 }
