@@ -4,22 +4,13 @@ class SearchComic extends Component {
     render () {
         return (
             <div>
-                <form className='form'>
+                <form className='form' onSubmit={this.props.getComics}>
                     <label>
-                        <input type='text' name='title' placeholder='Comic Title'/>
+                        <input type='text' name='title' placeholder='Comic Title' onChange={this.props.setTitle}/>
                     </label>
-                    <label>
-                        <input type='text' name='character' placeholder='Character Name'/>
-                    </label>
-                    <label>
-                        <input type='text' name='event' placeholder='Event'/>
-                    </label>
-                    <label>
-                        <input type='text' name='creators' placeholder='Creator'/>
-                    </label>
-                    <label>
-                        <input type='text' name='start-year' placeholder='Year Started'/>
-                    </label>
+                    {/* <label>
+                        <input type='text' name='startYear' placeholder='Year Started'/>
+                    </label> */}
                 </form>
             </div>
         )

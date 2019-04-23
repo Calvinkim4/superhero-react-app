@@ -61,11 +61,11 @@ class Characters extends Component {
         fetch(`http://gateway.marvel.com/v1/public/characters?name=${this.state.characterName}&apikey=${apiKey}`)
         .then(response => response.json())
           .then(data => {
-            console.log(data.data.results[0])
+            // console.log(data.data.results[0])
             this.setState({
                 character: data.data.results[0]
             })
-            console.log(this.state.character.thumbnail.path + '.' + this.state.character.thumbnail.extension)
+            // console.log(this.state.character.thumbnail.path + '.' + this.state.character.thumbnail.extension)
           })
     }
 
