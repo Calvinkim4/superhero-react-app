@@ -40,10 +40,9 @@ body {
   /* font-family: 'Permanent Marker', cursive; */
   /* font-family: 'Bungee Shade', cursive; */
   /* font-family: 'Ranchers', cursive; */
-  background-image: url('https://images6.alphacoders.com/327/327321.jpg');
-  background-position: center;
-  background-size: cover;
-  background-repeat: no-repeat;
+  /* background-image: url('https://images6.alphacoders.com/327/327321.jpg'); */
+  /* background-position: center; */
+  /* background-repeat: no-repeat; */
 }
 
 h1, p {
@@ -66,7 +65,6 @@ div {
 
 img {
   border: 10px solid white;
-  border-radius: 5px;
   width: 300px;
   height: auto;
 }
@@ -74,6 +72,7 @@ img {
 nav {
   display: flex;
   justify-content: center;
+  margin: 30px;
 }
 
 a {
@@ -82,12 +81,25 @@ a {
   color: white;
   text-decoration: none;
   list-style: none;
-  font-size: 50px;
+  font-size: 70px;
 }
 
 li {
   color: white;
   list-style: none;
+}
+
+li:hover {
+  color: #e0c541;
+}
+
+li:active {
+  color: red;
+  text-shadow: 2px 0 2px #fff, -2px 0 2px #fff, 0 -2px 2px #fff, 0 2px 2px #fff;
+}
+
+h2 {
+  color: white;
 }
 
 .event {
@@ -103,3 +115,99 @@ li {
 .event-desc > h1 {
   font-size: 60px;
 }
+
+.character-list {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  width: 100%;
+  justify-content: center;
+}
+
+.character-list > li {
+  width: 15%;
+}
+
+.all-comic-div {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  width: 100%;
+  justify-content: center;
+}
+
+.comic {
+  width: 20%;
+  height: 500px;
+  border-radius: 5px;
+}
+
+.comic:hover {
+  background-color: #e0c541;
+}
+
+.comic:active {
+  background-color: #d77df2;
+}
+
+.comic > img {
+  width: 80%;
+  height: auto;
+  margin: auto;
+}
+
+.comic-desc > h1 {
+  font-size: 40px;
+  padding: 10px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+/* .comic-desc > p {
+  padding: 10px;
+  font-size: 20px;
+} */
+
+.comic-button {
+  font-family: 'Bangers', cursive;
+  font-size: 30px;
+  color: white;
+  background-color: red;
+  float: right;
+  margin: 70px 30px;
+  width: 100px;
+}
+
+.comic-button:active {
+  color: red;
+  background-color: white;
+}
+
+.comic-button:focus {
+  outline:0;
+}
+
+.back {
+  float: left;
+}
+
+label > input {
+  font-family: 'Bangers', cursive;
+  color: black;
+  font-size: 30px;
+  margin: 20px 10px;
+  text-align: center;
+}
+
+input:focus {
+  outline: 0;
+}
+
+/* .input-button {
+  font-family: 'Bangers', cursive;
+  color: black;
+  font-size: 30px;
+  margin: 10px;
+  text-align: center;
+} */

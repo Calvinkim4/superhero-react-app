@@ -2,13 +2,13 @@ import React, { Component } from 'react';
 import Random from './Random';
 
 const supApiKey = process.env.REACT_APP_SUPERHERO_KEY;
+const apiKey = process.env.REACT_APP_MARVEL_KEY;
 
 class Home extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            data: null,
-            url: ''
+            data: null
         }
     }
 
@@ -17,9 +17,9 @@ class Home extends Component {
         fetch(`https://superheroapi.com/api.php/${supApiKey}/${random}`)
           .then(response => response.json())
           .then(data => {
+              console.log(data)
             this.setState({
                 data: data,
-                url: data.image.url
             })
           })
       }

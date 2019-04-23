@@ -1,14 +1,21 @@
 import React, { Component } from 'react';
+import SearchCharacter from './SearchCharacter';
 
-const supApiKey = process.env.REACT_APP_SUPERHERO_KEY;
+const apiKey = process.env.REACT_APP_MARVEL_KEY;
 
 class Characters extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            id: 1,
-            data: []
+            limit: 100,
+            offset: 0,
+            data: [],
+            character: null,
+            characterName: ''
         }
+        this.setCharacter = this.setCharacter.bind(this)
+        this.getCharacter = this.getCharacter.bind(this)
+
     }
 
     showMoreCharacters() {
@@ -24,26 +31,73 @@ class Characters extends Component {
         //         url: data.image.url
         //     })
         //   })
-        fetch('https://cdn.rawgit.com/akabab/superhero-api/0.2.0/api/all.json')
+        // fetch('https://cdn.rawgit.com/akabab/superhero-api/0.2.0/api/all.json')
+        // .then(response => response.json())
+        //   .then(data => {
+        //     // console.log(data)
+        //     this.setState({
+        //         data: data
+        //     })
+        //   })
+        fetch(`http://gateway.marvel.com/v1/public/characters?orderBy=name&limit=${this.state.limit}&offset=${this.state.offset}&apikey=${apiKey}`)
         .then(response => response.json())
           .then(data => {
-            // console.log(data)
             this.setState({
-                data: data
+                data: data.data.results,
+                offset: this.state.offset + 100,
             })
+          })
+    }
+
+    setCharacter(event) {
+        this.setState({
+            characterName: event.target.value
+        })
+    }
+
+    getCharacter(event) {
+        event.preventDefault();
+
+        fetch(`http://gateway.marvel.com/v1/public/characters?name=${this.state.characterName}&apikey=${apiKey}`)
+        .then(response => response.json())
+          .then(data => {
+            console.log(data.data.results[0])
+            this.setState({
+                character: data.data.results[0]
+            })
+            console.log(this.state.character.thumbnail.path + '.' + this.state.character.thumbnail.extension)
           })
     }
 
     render() {
         let allCharacterNames = this.state.data.map(character => {
-            return <li key={character.id}>{character.name}</li>
+            return (
+                <div key={character.id}>
+                    <h2>{character.name}</h2>
+                    <img src={character.thumbnail.path + '.' + character.thumbnail.extension} alt='character' />
+                </div>
+            )
         })
+
         return (
             <div>
-                <h1>Character List</h1>
+                <SearchCharacter getCharacter={this.getCharacter} setCharacter={this.setCharacter}/>
+
+                {(this.state.character === null) ? 
+                    null : 
+                    <div>
+                        <img src={this.state.character.thumbnail.path + '.' + this.state.character.thumbnail.extension} alt='character' />
+                        <h1>{this.state.character.name}</h1>
+                        <p>{this.state.character.description}</p>
+                    </div>
+                }
+
                 <button onClick={() => this.showMoreCharacters()}>MORE</button>
+                <div className='character-list'>
                 {allCharacterNames}
             </div>
+            </div>
+            
         )
     }
 }
