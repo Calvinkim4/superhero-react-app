@@ -63,6 +63,11 @@ div {
   background-color: rgba(0, 0, 0, .4);
 }
 
+.marvel-logo {
+  width: 1000px;
+  height: auto;
+}
+
 img {
   border: 10px solid white;
   width: 300px;

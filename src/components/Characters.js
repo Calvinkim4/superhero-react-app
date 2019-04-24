@@ -9,44 +9,54 @@ class Characters extends Component {
         super(props);
         this.state = {
             limit: 100,
-            offset: 0,
+            offset: -100,
             data: [],
             characterName: ''
         }
+        this.getCharacters = this.getCharacters.bind(this);
+        this.getBackCharacters = this.getBackCharacters.bind(this);
         this.setCharacter = this.setCharacter.bind(this)
         this.getCharacter = this.getCharacter.bind(this)
 
     }
 
-    componentDidMount() {
-        // for (let i = this.state.id; (i <= this.state.id + 10) && (i <= 731); i++) {
-
-        // }
-        // fetch(`https://superheroapi.com/api.php/${supApiKey}/${this.state.id}`)
-        //   .then(response => response.json())
-        //   .then(data => {
-        //     this.setState({
-        //         id: data.id,
-        //         data: data,
-        //         url: data.image.url
-        //     })
-        //   })
-        // fetch('https://cdn.rawgit.com/akabab/superhero-api/0.2.0/api/all.json')
-        // .then(response => response.json())
-        //   .then(data => {
-        //     // console.log(data)
-        //     this.setState({
-        //         data: data
-        //     })
-        //   })
-        fetch(`http://gateway.marvel.com/v1/public/characters?orderBy=name&limit=${this.state.limit}&offset=${this.state.offset}&apikey=${apiKey}`)
+    getCharacters() {
+        // this.setState({
+        //     offset: this.state.offset + 100
+        //  }) 
+        fetch(`http://gateway.marvel.com/v1/public/characters?orderBy=name&limit=${this.state.limit}&offset=${this.state.offset + 100}&apikey=${apiKey}`)
         .then(response => response.json())
           .then(data => {
             this.setState({
-                data: data.data.results
-                // offset: this.state.offset + 100,
+                data: data.data.results,
+                offset: this.state.offset + 100
+                })
             })
-          })
+    }
+
+    getBackCharacters() {
+        // if (this.state.offset >= 100) {
+        //     this.setState({
+        //         offset: 100
+        //      }) 
+        //  }
+        fetch(`http://gateway.marvel.com/v1/public/characters?orderBy=name&limit=${this.state.limit}&offset=${this.state.offset - 100}&apikey=${apiKey}`)
+        .then(response => response.json())
+          .then(data => {
+            this.setState({
+                data: data.data.results,
+                offset: this.state.offset - 100
+                })
+            })
+            if (this.state.offset <= 0) {
+                this.setState({
+                    offset: 0
+                 }) 
+             }
+    }
+
+    componentDidMount() {
+        this.getCharacters();
     }
 
     setCharacter(event) {
@@ -81,20 +91,34 @@ class Characters extends Component {
             )
         })
 
-        return (
-            <div>
-                <SearchCharacter getCharacter={this.getCharacter} setCharacter={this.setCharacter}/>
-                <button className='comic-button back'>Back</button>
-                <button className='comic-button'>Next</button>
-                <div className='character-list'>
-                    {allCharacterNames}
+        if (this.state.offset <= 0) {
+            return (
+                <div>
+                    <SearchCharacter getCharacter={this.getCharacter} setCharacter={this.setCharacter}/>
+                    <button className='comic-button' onClick={this.getCharacters}>Next</button>
+                    <div className='character-list'>
+                        {allCharacterNames}
+                    </div>
+                    <button className='comic-button' onClick={this.getCharacters}>Next</button>
                 </div>
-                <button className='comic-button back'>Back</button>
-                <button className='comic-button'>Next</button>
+                
+            )
+        } else {
+            return (
+                <div>
+                    <SearchCharacter getCharacter={this.getCharacter} setCharacter={this.setCharacter}/>
+                    <button className='comic-button back' onClick={this.getBackCharacters}>Back</button>
+                    <button className='comic-button' onClick={this.getCharacters}>Next</button>
+                    <div className='character-list'>
+                        {allCharacterNames}
+                    </div>
+                    <button className='comic-button back' onClick={this.getBackCharacters}>Back</button>
+                    <button className='comic-button' onClick={this.getCharacters}>Next</button>
+                </div>
+                
+            )
+        }
 
-            </div>
-            
-        )
     }
 }
 

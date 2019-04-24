@@ -1,7 +1,8 @@
 import React, { Component } from 'react';
 import Random from './Random';
+import CharacterList from '../../src/data/character-list.json';
 
-const supApiKey = process.env.REACT_APP_SUPERHERO_KEY;
+// const supApiKey = process.env.REACT_APP_SUPERHERO_KEY;
 const apiKey = process.env.REACT_APP_MARVEL_KEY;
 
 class Home extends Component {
@@ -13,27 +14,34 @@ class Home extends Component {
     }
 
     componentDidMount() {
-        let random = Math.floor((Math.random() * 731) + 1);
-        fetch(`https://superheroapi.com/api.php/${supApiKey}/${random}`)
-          .then(response => response.json())
-          .then(data => {
-              console.log(data)
-            this.setState({
-                data: data,
-            })
-          })
-      }
+        // let random = Math.floor((Math.random() * 1251) + 1);
+        // fetch(`http://gateway.marvel.com/v1/public/characters?name=${CharacterList[random]}&apikey=${apiKey}`)
+        // .then(response => response.json())
+        // .then(data => {
+        //     console.log(data)
+        //     this.setState({
+        //         data: data.data.results[0]
+        //     })
+        // })
+
+    }
 
     render() {
-        if (this.state.data === null) {
-            return <h1>LOADING...</h1>;
-        } else {
-           return (
+        // if (this.state.data === null) {
+        //     return <h1>LOADING...</h1>;
+        // } else {
+        //    return (
+        //     <div>
+        //         <img className='marvel-logo' src='https://media2.giphy.com/media/10ADhj1QPawFna/giphy.gif?cid=790b76115cc079a96d68734d4973c9b0' alt='marvel logo' />
+        //         {/* <Random data={this.state.data}/> */}
+        //     </div>
+        // ) 
+        // }
+        return (
             <div>
-                <Random data={this.state.data}/>
+                <img className='marvel-logo' src='https://media2.giphy.com/media/10ADhj1QPawFna/giphy.gif?cid=790b76115cc079a96d68734d4973c9b0' alt='marvel logo' />
             </div>
         ) 
-        }
         
     }
 }

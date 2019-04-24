@@ -9,12 +9,13 @@ class Events extends Component {
         super(props);
         this.state = {
             limit: 30,
-            offset: 0,
+            offset: -30,
             data: [],
             title: ''
         }
 
         this.getEvents = this.getEvents.bind(this);
+        this.getBackEvents = this.getBackEvents.bind(this);
         this.getSpecificEvents = this.getSpecificEvents.bind(this);
         this.setTitle = this.setTitle.bind(this);
     }
@@ -26,14 +27,37 @@ class Events extends Component {
     }
 
     getEvents() {
-        fetch(`http://gateway.marvel.com/v1/public/events?limit=${this.state.limit}&offset=${this.state.offset}&apikey=${apiKey}`)
+        // this.setState({
+        //     offset: this.state.offset + 30
+        //  }) 
+        fetch(`http://gateway.marvel.com/v1/public/events?limit=${this.state.limit}&offset=${this.state.offset + 30}&apikey=${apiKey}`)
           .then(response => response.json())
           .then(data => {
-            // console.log(data);
             this.setState({
                 data: data.data.results,
-                // offset: this.state.offset + 30
+                offset: this.state.offset + 30
             })
+        })
+    }
+
+    getBackEvents() {
+        // if (this.state.offset >= 30) {
+        //     this.setState({
+        //         offset: 30
+        //      }) 
+        //  }
+        fetch(`http://gateway.marvel.com/v1/public/events?limit=${this.state.limit}&offset=${this.state.offset - 30}&apikey=${apiKey}`)
+          .then(response => response.json())
+          .then(data => {
+            this.setState({
+                data: data.data.results,
+                offset: this.state.offset - 30
+            })
+            if (this.state.offset <= 0) {
+                this.setState({
+                    offset: 0
+                 }) 
+             }
         })
     }
 
@@ -47,13 +71,11 @@ class Events extends Component {
         fetch(url)
         .then(response => response.json())
         .then(data => {
-            // console.log(data);
             this.setState({
                 data: data.data.results
             })
         })
 
-        console.log(url);
     }
 
     componentDidMount() {
@@ -73,18 +95,31 @@ class Events extends Component {
                 </Link>
             )
         })
-        return (
-            <div>
-                <SearchEvent setTitle={this.setTitle} getEvents={this.getSpecificEvents}/>
-                <button className='comic-button back'>Back</button>
-                <button className='comic-button'>Next</button>
-                <div className='all-comic-div'>
-                    {events}
+        if (this.state.offset <= 0) {
+            return (
+                <div>
+                    <SearchEvent setTitle={this.setTitle} getEvents={this.getSpecificEvents}/>
+                    <button className='comic-button' onClick={this.getEvents}>Next</button>
+                    <div className='all-comic-div'>
+                        {events}
+                    </div>
+                    <button className='comic-button' onClick={this.getEvents}>Next</button>
                 </div>
-                <button className='comic-button back'>Back</button>
-                <button className='comic-button'>Next</button>
-            </div>
-        )
+            )
+        } else {
+            return (
+                <div>
+                    <SearchEvent setTitle={this.setTitle} getEvents={this.getSpecificEvents}/>
+                    <button className='comic-button back' onClick={this.getBackEvents}>Back</button>
+                    <button className='comic-button' onClick={this.getEvents}>Next</button>
+                    <div className='all-comic-div'>
+                        {events}
+                    </div>
+                    <button className='comic-button back' onClick={this.getBackEvents}>Back</button>
+                    <button className='comic-button' onClick={this.getEvents}>Next</button>
+                </div>
+            )
+        }
     }
 }
 
