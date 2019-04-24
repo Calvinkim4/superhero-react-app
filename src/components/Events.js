@@ -1,4 +1,6 @@
 import React, { Component } from 'react';
+import { Link } from 'react-router-dom'
+import SearchEvent from './SearchEvent';
 
 const apiKey = process.env.REACT_APP_MARVEL_KEY;
 
@@ -6,24 +8,52 @@ class Events extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            limit: 10,
+            limit: 30,
             offset: 0,
-            data: []
+            data: [],
+            title: ''
         }
 
         this.getEvents = this.getEvents.bind(this);
+        this.getSpecificEvents = this.getSpecificEvents.bind(this);
+        this.setTitle = this.setTitle.bind(this);
+    }
+
+    setTitle(event) {
+        this.setState({
+            title: event.target.value
+        })
     }
 
     getEvents() {
         fetch(`http://gateway.marvel.com/v1/public/events?limit=${this.state.limit}&offset=${this.state.offset}&apikey=${apiKey}`)
           .then(response => response.json())
           .then(data => {
-            console.log(data);
+            // console.log(data);
             this.setState({
                 data: data.data.results,
-                offset: this.state.offset + 10
+                // offset: this.state.offset + 30
             })
         })
+    }
+
+    getSpecificEvents(event) {
+        event.preventDefault();
+
+        let url = new URL (`http://gateway.marvel.com/v1/public/events?limit=${this.state.limit}&offset=${this.state.offset}&apikey=${apiKey}`);
+        let params = new URLSearchParams(url.search.slice(1));
+        params.append('name', this.state.title);
+        url.search = new URLSearchParams(params)
+        fetch(url)
+        .then(response => response.json())
+        .then(data => {
+            // console.log(data);
+            this.setState({
+                data: data.data.results
+            })
+        })
+
+        console.log(url);
     }
 
     componentDidMount() {
@@ -34,25 +64,25 @@ class Events extends Component {
 
         let events = this.state.data.map(event => {
             return (
-                <div className='event'key={event.id}>
-                    <img src={event.thumbnail.path + "." + event.thumbnail.extension} alt='event'/>
-                    <div className='event-desc'>
+                <Link to={`/Events/${event.id}`} className='comic' key={event.id}>
+                    <div className='comic-desc'>
                         <h1>{event.title}</h1>
-                        <p>{event.description}</p>
+                        {/* <p>{event.description}</p> */}
                     </div>
-                    
-                </div>
+                    <img src={event.thumbnail.path + "." + event.thumbnail.extension} alt='event'/>
+                </Link>
             )
         })
         return (
             <div>
+                <SearchEvent setTitle={this.setTitle} getEvents={this.getSpecificEvents}/>
                 <button className='comic-button back'>Back</button>
-                <button className='comic-button' onClick={this.getComics}>Next</button>
+                <button className='comic-button'>Next</button>
                 <div className='all-comic-div'>
                     {events}
                 </div>
-                <button className='comic-button back' onClick={this.getBackComics}>Back</button>
-                <button className='comic-button' onClick={this.getComics}>Next</button>
+                <button className='comic-button back'>Back</button>
+                <button className='comic-button'>Next</button>
             </div>
         )
     }

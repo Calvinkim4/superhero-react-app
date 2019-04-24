@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
-import { Route, Link } from 'react-router-dom'
+import { Link } from 'react-router-dom';
 import SearchComic from './SearchComic';
-import SingleComic from './SingleComic';
 
 const apiKey = process.env.REACT_APP_MARVEL_KEY;
 
@@ -15,7 +14,7 @@ class ComicList extends Component {
             title: ''
         }
         this.getComics = this.getComics.bind(this);
-        this.getSingleComic = this.getSingleComic.bind(this);
+        this.getSpecificComics = this.getSpecificComics.bind(this);
         // this.getBackComics = this.getBackComics.bind(this);
         this.setTitle = this.setTitle.bind(this);
 
@@ -38,7 +37,7 @@ class ComicList extends Component {
         })
     }
 
-    getSingleComic(event) {
+    getSpecificComics(event) {
         event.preventDefault();
         // if (this.state.offset !== 0) {
         //     this.setState({
@@ -111,7 +110,7 @@ class ComicList extends Component {
 
         return (
             <div>
-                <SearchComic setTitle={this.setTitle} getComics={this.getSingleComic}/>
+                <SearchComic setTitle={this.setTitle} getComics={this.getSpecificComics}/>
                 <button className='comic-button back' onClick={this.getBackComics}>Back</button>
                 <button className='comic-button' onClick={this.getComics}>Next</button>
                 <div className='all-comic-div'>

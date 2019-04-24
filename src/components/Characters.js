@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import { Link } from 'react-router-dom';
 import SearchCharacter from './SearchCharacter';
 
 const apiKey = process.env.REACT_APP_MARVEL_KEY;
@@ -10,7 +11,6 @@ class Characters extends Component {
             limit: 100,
             offset: 0,
             data: [],
-            character: null,
             characterName: ''
         }
         this.setCharacter = this.setCharacter.bind(this)
@@ -18,7 +18,7 @@ class Characters extends Component {
 
     }
 
-    showMoreCharacters() {
+    componentDidMount() {
         // for (let i = this.state.id; (i <= this.state.id + 10) && (i <= 731); i++) {
 
         // }
@@ -43,8 +43,8 @@ class Characters extends Component {
         .then(response => response.json())
           .then(data => {
             this.setState({
-                data: data.data.results,
-                offset: this.state.offset + 100,
+                data: data.data.results
+                // offset: this.state.offset + 100,
             })
           })
     }
@@ -63,7 +63,7 @@ class Characters extends Component {
           .then(data => {
             // console.log(data.data.results[0])
             this.setState({
-                character: data.data.results[0]
+                data: data.data.results
             })
             // console.log(this.state.character.thumbnail.path + '.' + this.state.character.thumbnail.extension)
           })
@@ -72,30 +72,26 @@ class Characters extends Component {
     render() {
         let allCharacterNames = this.state.data.map(character => {
             return (
-                <div key={character.id}>
-                    <h2>{character.name}</h2>
+                <Link to={`/Characters/${character.id}`} className='comic' key={character.id}>
+                    <div className='comic-desc'>
+                        <h1>{character.name}</h1>
+                    </div>
                     <img src={character.thumbnail.path + '.' + character.thumbnail.extension} alt='character' />
-                </div>
+                </Link>
             )
         })
 
         return (
             <div>
                 <SearchCharacter getCharacter={this.getCharacter} setCharacter={this.setCharacter}/>
-
-                {(this.state.character === null) ? 
-                    null : 
-                    <div>
-                        <img src={this.state.character.thumbnail.path + '.' + this.state.character.thumbnail.extension} alt='character' />
-                        <h1>{this.state.character.name}</h1>
-                        <p>{this.state.character.description}</p>
-                    </div>
-                }
-
-                <button onClick={() => this.showMoreCharacters()}>MORE</button>
+                <button className='comic-button back'>Back</button>
+                <button className='comic-button'>Next</button>
                 <div className='character-list'>
-                {allCharacterNames}
-            </div>
+                    {allCharacterNames}
+                </div>
+                <button className='comic-button back'>Back</button>
+                <button className='comic-button'>Next</button>
+
             </div>
             
         )

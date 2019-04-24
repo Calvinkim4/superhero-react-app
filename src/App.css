@@ -214,16 +214,8 @@ input:focus {
   outline: 0;
 }
 
-/* .input-button {
-  font-family: 'Bangers', cursive;
-  color: black;
-  font-size: 30px;
-  margin: 10px;
-  text-align: center;
-} */
-
 .single-comic-div {
-  margin: 40px;
+  margin: 90px 40px;
 }
 
 .single-comic-div > img {
