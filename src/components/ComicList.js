@@ -1,5 +1,7 @@
 import React, { Component } from 'react';
+import { Route, Link } from 'react-router-dom'
 import SearchComic from './SearchComic';
+import SingleComic from './SingleComic';
 
 const apiKey = process.env.REACT_APP_MARVEL_KEY;
 
@@ -10,10 +12,10 @@ class ComicList extends Component {
             limit: 50,
             offset: 0,
             data: [],
-            title: '',
-            yearStarted: ''
+            title: ''
         }
         this.getComics = this.getComics.bind(this);
+        this.getSingleComic = this.getSingleComic.bind(this);
         // this.getBackComics = this.getBackComics.bind(this);
         this.setTitle = this.setTitle.bind(this);
 
@@ -25,14 +27,18 @@ class ComicList extends Component {
         })
     }
 
+    getComics() {
+        let url = new URL (`http://gateway.marvel.com/v1/public/comics?limit=${this.state.limit}&offset=${this.state.offset}&apikey=${apiKey}`);
+        fetch(url)
+        .then(response => response.json())
+        .then(data => {
+            this.setState({
+                data: data.data.results
+            })
+        })
+    }
 
-    // setYearStarted(event) {
-    //     this.setState({
-    //         yearStarted: event.target.value
-    //     })
-    // }
-
-    getComics(event) {
+    getSingleComic(event) {
         event.preventDefault();
         // if (this.state.offset !== 0) {
         //     this.setState({
@@ -45,19 +51,12 @@ class ComicList extends Component {
         let url = new URL (`http://gateway.marvel.com/v1/public/comics?limit=${this.state.limit}&offset=${this.state.offset}&apikey=${apiKey}`);
         let params = new URLSearchParams(url.search.slice(1));
         params.append('title', this.state.title);
-        // params.append('yearStarted', this.state.yearStarted);
         url.search = new URLSearchParams(params)
         fetch(url)
         .then(response => response.json())
         .then(data => {
-            // console.log(data);
-            let { offset } = this.state;
-            offset += 50;
-            this.setState(state => {
-                return {
-                    data: data.data.results,
-                    offset
-                }
+            this.setState({
+                data: data.data.results
             })
         })
     }
@@ -87,35 +86,32 @@ class ComicList extends Component {
     // }
 
     componentDidMount() {
-        // this.getComics();
-
-        let url = new URL (`http://gateway.marvel.com/v1/public/comics?limit=${this.state.limit}&offset=${this.state.offset}&apikey=${apiKey}`);
-        fetch(url)
-        .then(response => response.json())
-        .then(data => {
-            this.setState({
-                data: data.data.results
-            })
-        })
+        this.getComics();
     }
 
     render () {
         let comics = this.state.data.map(comic => {
             return (
-                <div className='comic' key={comic.id}>
+                <Link to={`/Comics/${comic.id}`} className='comic' key={comic.id}>
                     <div className='comic-desc'>
                         <h1>{comic.title}</h1>
                         {/* <p>{comic.description}</p> */}
                     </div>
                     <img src={comic.thumbnail.path + "." + comic.thumbnail.extension} alt='comic'/>
-                    
-                </div>
+                </Link>
+                // <Link className='link' to='/comic-desc'><div className='comic' key={comic.id}>
+                //     <div className='comic-desc'>
+                //         <h1>{comic.title}</h1>
+                //         {/* <p>{comic.description}</p> */}
+                //     </div>
+                //     <img src={comic.thumbnail.path + "." + comic.thumbnail.extension} alt='comic'/>
+                // </div></Link>
             )
         })
 
         return (
             <div>
-                <SearchComic setTitle={this.setTitle} getComics={this.getComics}/>
+                <SearchComic setTitle={this.setTitle} getComics={this.getSingleComic}/>
                 <button className='comic-button back' onClick={this.getBackComics}>Back</button>
                 <button className='comic-button' onClick={this.getComics}>Next</button>
                 <div className='all-comic-div'>

@@ -8,9 +8,6 @@ class SearchComic extends Component {
                     <label>
                         <input type='text' name='title' placeholder='Comic Title' onChange={this.props.setTitle}/>
                     </label>
-                    {/* <label>
-                        <input type='text' name='startYear' placeholder='Year Started'/>
-                    </label> */}
                 </form>
             </div>
         )

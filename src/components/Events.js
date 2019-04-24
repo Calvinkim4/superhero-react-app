@@ -46,8 +46,13 @@ class Events extends Component {
         })
         return (
             <div>
-                <button onClick={this.getEvents}>More Events</button>
-                {events}
+                <button className='comic-button back'>Back</button>
+                <button className='comic-button' onClick={this.getComics}>Next</button>
+                <div className='all-comic-div'>
+                    {events}
+                </div>
+                <button className='comic-button back' onClick={this.getBackComics}>Back</button>
+                <button className='comic-button' onClick={this.getComics}>Next</button>
             </div>
         )
     }

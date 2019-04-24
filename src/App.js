@@ -5,6 +5,7 @@ import Home from './components/Home';
 import Characters from './components/Characters';
 import Events from './components/Events';
 import Comics from './components/Comics';
+import SingleComic from './components/SingleComic';
 
 // const apiKey = process.env.REACT_APP_MARVEL_KEY;
 // const supApiKey = process.env.REACT_APP_SUPERHERO_KEY;
@@ -25,7 +26,8 @@ class App extends Component {
           <Route path='/' exact component={Home} />
           <Route path='/Characters' component={Characters} />
           <Route path='/Events' component={Events} />
-          <Route path='/Comics' component={Comics} />
+          <Route exact path='/Comics' component={Comics} />
+          <Route path='/Comics/:id' render={(props) => <SingleComic {...props} />} />
         </main>
       </div>
     );
