@@ -21,9 +21,6 @@ class Characters extends Component {
     }
 
     getCharacters() {
-        // this.setState({
-        //     offset: this.state.offset + 100
-        //  }) 
         fetch(`http://gateway.marvel.com/v1/public/characters?orderBy=name&limit=${this.state.limit}&offset=${this.state.offset + 100}&apikey=${apiKey}`)
         .then(response => response.json())
           .then(data => {
@@ -35,11 +32,6 @@ class Characters extends Component {
     }
 
     getBackCharacters() {
-        // if (this.state.offset >= 100) {
-        //     this.setState({
-        //         offset: 100
-        //      }) 
-        //  }
         fetch(`http://gateway.marvel.com/v1/public/characters?orderBy=name&limit=${this.state.limit}&offset=${this.state.offset - 100}&apikey=${apiKey}`)
         .then(response => response.json())
           .then(data => {
@@ -71,11 +63,9 @@ class Characters extends Component {
         fetch(`http://gateway.marvel.com/v1/public/characters?name=${this.state.characterName}&apikey=${apiKey}`)
         .then(response => response.json())
           .then(data => {
-            // console.log(data.data.results[0])
             this.setState({
                 data: data.data.results
             })
-            // console.log(this.state.character.thumbnail.path + '.' + this.state.character.thumbnail.extension)
           })
     }
 

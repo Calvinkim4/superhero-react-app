@@ -10,10 +10,6 @@ import SingleEvent from './components/SingleEvent';
 import SingleCharacter from './components/SingleCharacter';
 
 
-
-// const apiKey = process.env.REACT_APP_MARVEL_KEY;
-// const supApiKey = process.env.REACT_APP_SUPERHERO_KEY;
-
 class App extends Component {
 
   render() {
@@ -37,7 +33,7 @@ class App extends Component {
 
         </main>
       </div>
-    );
+    )
   }
 }
 

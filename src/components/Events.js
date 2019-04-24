@@ -27,9 +27,6 @@ class Events extends Component {
     }
 
     getEvents() {
-        // this.setState({
-        //     offset: this.state.offset + 30
-        //  }) 
         fetch(`http://gateway.marvel.com/v1/public/events?limit=${this.state.limit}&offset=${this.state.offset + 30}&apikey=${apiKey}`)
           .then(response => response.json())
           .then(data => {
@@ -41,11 +38,6 @@ class Events extends Component {
     }
 
     getBackEvents() {
-        // if (this.state.offset >= 30) {
-        //     this.setState({
-        //         offset: 30
-        //      }) 
-        //  }
         fetch(`http://gateway.marvel.com/v1/public/events?limit=${this.state.limit}&offset=${this.state.offset - 30}&apikey=${apiKey}`)
           .then(response => response.json())
           .then(data => {
@@ -89,7 +81,6 @@ class Events extends Component {
                 <Link to={`/Events/${event.id}`} className='comic' key={event.id}>
                     <div className='comic-desc'>
                         <h1>{event.title}</h1>
-                        {/* <p>{event.description}</p> */}
                     </div>
                     <img src={event.thumbnail.path + "." + event.thumbnail.extension} alt='event'/>
                 </Link>

@@ -33,16 +33,8 @@
 }
 
 body {
-  /* background-color: #0357b7; */
   background-color: black;
   font-family: 'Bangers', cursive;
-  /* font-family: 'Faster One', cursive; */
-  /* font-family: 'Permanent Marker', cursive; */
-  /* font-family: 'Bungee Shade', cursive; */
-  /* font-family: 'Ranchers', cursive; */
-  /* background-image: url('https://images6.alphacoders.com/327/327321.jpg'); */
-  /* background-position: center; */
-  /* background-repeat: no-repeat; */
 }
 
 h1, p {
@@ -178,11 +170,6 @@ h2 {
   overflow: hidden;
   text-overflow: ellipsis;
 }
-
-/* .comic-desc > p {
-  padding: 10px;
-  font-size: 20px;
-} */
 
 .comic-button {
   font-family: 'Bangers', cursive;

@@ -18,11 +18,10 @@ class SingleComic extends Component {
         fetch(`http://gateway.marvel.com/v1/public/comics/${id}?apikey=${apiKey}`)
         .then(response => response.json())
         .then(data => {
-            console.log(data.data.results[0]);
             this.setState({
                 title: data.data.results[0].title,
                 description: data.data.results[0].description,
-                thumbnail: data.data.results[0].thumbnail.path + '.' + data.data.results[0].thumbnail.extension
+                thumbnail: `${data.data.results[0].thumbnail.path}.${data.data.results[0].thumbnail.extension}`
             })
         })
     }

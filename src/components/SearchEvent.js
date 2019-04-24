@@ -1,17 +1,15 @@
-import React, { Component } from 'react';
+import React from 'react';
 
-class SearchEvent extends Component {
-    render () {
-        return (
-            <div>
-                <form className='form' onSubmit={this.props.getEvents}>
-                    <label>
-                        <input type='text' name='title' placeholder='Event Title' onChange={this.props.setTitle}/>
-                    </label>
-                </form>
-            </div>
-        )
-    }
+function SearchEvent(props) {
+    return (
+        <div>
+            <form className='form' onSubmit={props.getEvents}>
+                <label>
+                    <input type='text' name='title' placeholder='Event Title' onChange={props.setTitle}/>
+                </label>
+            </form>
+        </div>
+    )
 }
 
 export default SearchEvent;
