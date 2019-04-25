@@ -3,7 +3,6 @@ import { Link } from 'react-router-dom';
 import SearchCharacter from './SearchCharacter';
 
 const apiKey = process.env.REACT_APP_MARVEL_KEY;
-const privateKey = process.env.REACT_APP_PRIVATE_KEY;
 
 class Characters extends Component {
     constructor(props) {

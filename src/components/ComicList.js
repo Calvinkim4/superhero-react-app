@@ -3,7 +3,6 @@ import { Link } from 'react-router-dom';
 import SearchComic from './SearchComic';
 
 const apiKey = process.env.REACT_APP_MARVEL_KEY;
-const privateKey = process.env.REACT_APP_PRIVATE_KEY;
 
 class ComicList extends Component {
     constructor(props) {
