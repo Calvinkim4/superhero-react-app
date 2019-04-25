@@ -11,7 +11,7 @@ class Characters extends Component {
         this.state = {
             limit: 100,
             offset: -100,
-            data: [],
+            data: null,
             characterName: ''
         }
         this.getCharacters = this.getCharacters.bind(this);
@@ -22,7 +22,7 @@ class Characters extends Component {
     }
 
     getCharacters() {
-        fetch(`https://gateway.marvel.com/v1/public/characters?orderBy=name&limit=${this.state.limit}&offset=${this.state.offset + 100}&apikey=${apiKey}&hash=${privateKey}`)
+        fetch(`https://gateway.marvel.com/v1/public/characters?orderBy=name&limit=${this.state.limit}&offset=${this.state.offset + 100}&apikey=${apiKey}`)
         .then(response => response.json())
           .then(data => {
             this.setState({
@@ -33,7 +33,7 @@ class Characters extends Component {
     }
 
     getBackCharacters() {
-        fetch(`https://gateway.marvel.com/v1/public/characters?orderBy=name&limit=${this.state.limit}&offset=${this.state.offset - 100}&apikey=${apiKey}&hash=${privateKey}`)
+        fetch(`https://gateway.marvel.com/v1/public/characters?orderBy=name&limit=${this.state.limit}&offset=${this.state.offset - 100}&apikey=${apiKey}`)
         .then(response => response.json())
           .then(data => {
             this.setState({
@@ -61,54 +61,74 @@ class Characters extends Component {
     getCharacter(event) {
         event.preventDefault();
 
-        fetch(`https://gateway.marvel.com/v1/public/characters?name=${this.state.characterName}&apikey=${apiKey}&hash=${privateKey}`)
-        .then(response => response.json())
-          .then(data => {
-            this.setState({
-                data: data.data.results
-            })
-          })
+        this.setState({
+            data: null
+        })
+
+        if (this.state.characterName !== '') {
+            fetch(`https://gateway.marvel.com/v1/public/characters?name=${this.state.characterName}&apikey=${apiKey}`)
+                .then(response => response.json())
+                .then(data => {
+                    this.setState({
+                        data: data.data.results
+                    })
+                })
+        }
+        
     }
 
     render() {
-        let allCharacterNames = this.state.data.map(character => {
-            return (
-                <Link to={`/Characters/${character.id}`} className='comic' key={character.id}>
-                    <div className='comic-desc'>
-                        <h1>{character.name}</h1>
-                    </div>
-                    <img src={character.thumbnail.path + '.' + character.thumbnail.extension} alt='character' />
-                </Link>
-            )
-        })
-
-        if (this.state.offset <= 0) {
-            return (
-                <div>
-                    <SearchCharacter getCharacter={this.getCharacter} setCharacter={this.setCharacter}/>
-                    <button className='comic-button' onClick={this.getCharacters}>Next</button>
-                    <div className='character-list'>
-                        {allCharacterNames}
-                    </div>
-                    <button className='comic-button' onClick={this.getCharacters}>Next</button>
-                </div>
-                
-            )
+        if (this.state.data === null) {
+            return <h1>LOADING...</h1>
         } else {
-            return (
-                <div>
-                    <SearchCharacter getCharacter={this.getCharacter} setCharacter={this.setCharacter}/>
-                    <button className='comic-button back' onClick={this.getBackCharacters}>Back</button>
-                    <button className='comic-button' onClick={this.getCharacters}>Next</button>
-                    <div className='character-list'>
-                        {allCharacterNames}
+            if (this.state.data.length === 0) {
+                return (
+                    <div>
+                        <SearchCharacter getCharacter={this.getCharacter} setCharacter={this.setCharacter}/>
+                        <h1>NO MATCH</h1>
                     </div>
-                    <button className='comic-button back' onClick={this.getBackCharacters}>Back</button>
-                    <button className='comic-button' onClick={this.getCharacters}>Next</button>
-                </div>
-                
-            )
+                )
+            }
+            let allCharacterNames = this.state.data.map(character => {
+                return (
+                    <Link to={`/Characters/${character.id}`} className='comic' key={character.id}>
+                        <div className='comic-desc'>
+                            <h1>{character.name}</h1>
+                        </div>
+                        <img src={character.thumbnail.path + '.' + character.thumbnail.extension} alt='character' />
+                    </Link>
+                )
+            })
+        
+            if (this.state.offset <= 0) {
+                return (
+                    <div>
+                        <SearchCharacter getCharacter={this.getCharacter} setCharacter={this.setCharacter}/>
+                        <button className='comic-button' onClick={this.getCharacters}>Next</button>
+                        <div className='character-list'>
+                            {allCharacterNames}
+                        </div>
+                        <button className='comic-button' onClick={this.getCharacters}>Next</button>
+                    </div>
+                    
+                )
+            } else {
+                return (
+                    <div>
+                        <SearchCharacter getCharacter={this.getCharacter} setCharacter={this.setCharacter}/>
+                        <button className='comic-button back' onClick={this.getBackCharacters}>Back</button>
+                        <button className='comic-button' onClick={this.getCharacters}>Next</button>
+                        <div className='character-list'>
+                            {allCharacterNames}
+                        </div>
+                        <button className='comic-button back' onClick={this.getBackCharacters}>Back</button>
+                        <button className='comic-button' onClick={this.getCharacters}>Next</button>
+                    </div>
+                    
+                )
+            }
         }
+        return null;
 
     }
 }

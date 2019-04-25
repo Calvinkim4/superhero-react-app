@@ -11,7 +11,7 @@ class Events extends Component {
         this.state = {
             limit: 30,
             offset: -30,
-            data: [],
+            data: null,
             title: ''
         }
 
@@ -28,7 +28,7 @@ class Events extends Component {
     }
 
     getEvents() {
-        fetch(`https://gateway.marvel.com/v1/public/events?limit=${this.state.limit}&offset=${this.state.offset + 30}&apikey=${apiKey}&hash=${privateKey}`)
+        fetch(`https://gateway.marvel.com/v1/public/events?limit=${this.state.limit}&offset=${this.state.offset + 30}&apikey=${apiKey}`)
           .then(response => response.json())
           .then(data => {
             this.setState({
@@ -39,7 +39,7 @@ class Events extends Component {
     }
 
     getBackEvents() {
-        fetch(`https://gateway.marvel.com/v1/public/events?limit=${this.state.limit}&offset=${this.state.offset - 30}&apikey=${apiKey}&hash=${privateKey}`)
+        fetch(`https://gateway.marvel.com/v1/public/events?limit=${this.state.limit}&offset=${this.state.offset - 30}&apikey=${apiKey}`)
           .then(response => response.json())
           .then(data => {
             this.setState({
@@ -57,17 +57,24 @@ class Events extends Component {
     getSpecificEvents(event) {
         event.preventDefault();
 
-        let url = new URL (`https://gateway.marvel.com/v1/public/events?limit=${this.state.limit}&offset=${this.state.offset}&apikey=${apiKey}&hash=${privateKey}`);
-        let params = new URLSearchParams(url.search.slice(1));
-        params.append('name', this.state.title);
-        url.search = new URLSearchParams(params)
-        fetch(url)
-        .then(response => response.json())
-        .then(data => {
-            this.setState({
-                data: data.data.results
-            })
+        this.setState({
+            data: null
         })
+
+        if (this.state.title !== '') {
+            let url = new URL (`https://gateway.marvel.com/v1/public/events?limit=${this.state.limit}&offset=${this.state.offset}&apikey=${apiKey}`);
+            let params = new URLSearchParams(url.search.slice(1));
+            params.append('name', this.state.title);
+            url.search = new URLSearchParams(params)
+            fetch(url)
+            .then(response => response.json())
+            .then(data => {
+                this.setState({
+                    data: data.data.results
+                })
+            })
+        }
+        
 
     }
 
@@ -77,41 +84,54 @@ class Events extends Component {
 
     render() {
 
-        let events = this.state.data.map(event => {
-            return (
-                <Link to={`/Events/${event.id}`} className='comic' key={event.id}>
-                    <div className='comic-desc'>
-                        <h1>{event.title}</h1>
-                    </div>
-                    <img src={event.thumbnail.path + "." + event.thumbnail.extension} alt='event'/>
-                </Link>
-            )
-        })
-        if (this.state.offset <= 0) {
-            return (
-                <div>
-                    <SearchEvent setTitle={this.setTitle} getEvents={this.getSpecificEvents}/>
-                    <button className='comic-button' onClick={this.getEvents}>Next</button>
-                    <div className='all-comic-div'>
-                        {events}
-                    </div>
-                    <button className='comic-button' onClick={this.getEvents}>Next</button>
-                </div>
-            )
+        if (this.state.data === null) {
+            return <h1>LOADING...</h1>
         } else {
-            return (
-                <div>
-                    <SearchEvent setTitle={this.setTitle} getEvents={this.getSpecificEvents}/>
-                    <button className='comic-button back' onClick={this.getBackEvents}>Back</button>
-                    <button className='comic-button' onClick={this.getEvents}>Next</button>
-                    <div className='all-comic-div'>
-                        {events}
+            if (this.state.data.length === 0) {
+                return (
+                    <div>
+                        <SearchEvent setTitle={this.setTitle} getEvents={this.getSpecificEvents}/>
+                        <h1>NO MATCH</h1>
                     </div>
-                    <button className='comic-button back' onClick={this.getBackEvents}>Back</button>
-                    <button className='comic-button' onClick={this.getEvents}>Next</button>
-                </div>
-            )
+                )
+            }
+            let events = this.state.data.map(event => {
+                return (
+                    <Link to={`/Events/${event.id}`} className='comic' key={event.id}>
+                        <div className='comic-desc'>
+                            <h1>{event.title}</h1>
+                        </div>
+                        <img src={event.thumbnail.path + "." + event.thumbnail.extension} alt='event'/>
+                    </Link>
+                )
+            })
+            if (this.state.offset <= 0) {
+                return (
+                    <div>
+                        <SearchEvent setTitle={this.setTitle} getEvents={this.getSpecificEvents}/>
+                        <button className='comic-button' onClick={this.getEvents}>Next</button>
+                        <div className='all-comic-div'>
+                            {events}
+                        </div>
+                        <button className='comic-button' onClick={this.getEvents}>Next</button>
+                    </div>
+                )
+            } else {
+                return (
+                    <div>
+                        <SearchEvent setTitle={this.setTitle} getEvents={this.getSpecificEvents}/>
+                        <button className='comic-button back' onClick={this.getBackEvents}>Back</button>
+                        <button className='comic-button' onClick={this.getEvents}>Next</button>
+                        <div className='all-comic-div'>
+                            {events}
+                        </div>
+                        <button className='comic-button back' onClick={this.getBackEvents}>Back</button>
+                        <button className='comic-button' onClick={this.getEvents}>Next</button>
+                    </div>
+                )
+            }
         }
+        
     }
 }
 

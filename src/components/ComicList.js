@@ -11,7 +11,7 @@ class ComicList extends Component {
         this.state = {
             limit: 50,
             offset: -50,
-            data: [],
+            data: null,
             title: ''
         }
         this.getComics = this.getComics.bind(this);
@@ -28,7 +28,7 @@ class ComicList extends Component {
     }
 
     getComics() {
-        let url = new URL (`https://gateway.marvel.com/v1/public/comics?limit=${this.state.limit}&offset=${this.state.offset + 50}&apikey=${apiKey}&hash=${privateKey}`);
+        let url = new URL (`https://gateway.marvel.com/v1/public/comics?limit=${this.state.limit}&offset=${this.state.offset + 50}&apikey=${apiKey}`);
         fetch(url)
         .then(response => response.json())
         .then(data => {
@@ -40,7 +40,7 @@ class ComicList extends Component {
     }
 
     getBackComics() {
-        let url = new URL (`https://gateway.marvel.com/v1/public/comics?limit=${this.state.limit}&offset=${this.state.offset - 50}&apikey=${apiKey}&hash=${privateKey}`);
+        let url = new URL (`https://gateway.marvel.com/v1/public/comics?limit=${this.state.limit}&offset=${this.state.offset - 50}&apikey=${apiKey}`);
         fetch(url)
         .then(response => response.json())
         .then(data => {
@@ -58,17 +58,25 @@ class ComicList extends Component {
 
     getSpecificComics(event) {
         event.preventDefault();
-        let url = new URL (`https://gateway.marvel.com/v1/public/comics?limit=${this.state.limit}&offset=${this.state.offset}&apikey=${apiKey}&hash=${privateKey}`);
-        let params = new URLSearchParams(url.search.slice(1));
-        params.append('title', this.state.title);
-        url.search = new URLSearchParams(params)
-        fetch(url)
-        .then(response => response.json())
-        .then(data => {
-            this.setState({
-                data: data.data.results
-            })
+
+        this.setState({
+            data: null
         })
+
+        if (this.state.title !== '') {
+            let url = new URL (`https://gateway.marvel.com/v1/public/comics?limit=${this.state.limit}&offset=${this.state.offset}&apikey=${apiKey}`);
+            let params = new URLSearchParams(url.search.slice(1));
+            params.append('title', this.state.title);
+            url.search = new URLSearchParams(params)
+            fetch(url)
+            .then(response => response.json())
+            .then(data => {
+                this.setState({
+                    data: data.data.results
+                })
+            }) 
+        }
+        
     }
 
     componentDidMount() {
@@ -76,42 +84,56 @@ class ComicList extends Component {
     }
 
     render () {
-        let comics = this.state.data.map(comic => {
-            return (
-                <Link to={`/Comics/${comic.id}`} className='comic' key={comic.id}>
-                    <div className='comic-desc'>
-                        <h1>{comic.title}</h1>
-                    </div>
-                    <img src={comic.thumbnail.path + "." + comic.thumbnail.extension} alt='comic'/>
-                </Link>
-            )
-        })
-
-        if (this.state.offset <= 0) {
-            return (
-                <div>
-                    <SearchComic setTitle={this.setTitle} getComics={this.getSpecificComics}/>
-                    <button className='comic-button' onClick={this.getComics}>Next</button>
-                    <div className='all-comic-div'>
-                        {comics}
-                    </div>
-                    <button className='comic-button' onClick={this.getComics}>Next</button>
-                </div>
-            )
+        if (this.state.data === null) {
+            return <h1>LOADING...</h1>
         } else {
-            return (
-                <div>
-                    <SearchComic setTitle={this.setTitle} getComics={this.getSpecificComics}/>
-                    <button className='comic-button back' onClick={this.getBackComics}>Back</button>
-                    <button className='comic-button' onClick={this.getComics}>Next</button>
-                    <div className='all-comic-div'>
-                        {comics}
+            if (this.state.data.length === 0) {
+                return (
+                    <div>
+                        <SearchComic setTitle={this.setTitle} getComics={this.getSpecificComics}/>                        
+                        <h1>NO MATCH</h1>
                     </div>
-                    <button className='comic-button back' onClick={this.getBackComics}>Back</button>
-                    <button className='comic-button' onClick={this.getComics}>Next</button>
-                </div>
-            )
+                )
+            }
+            let comics = this.state.data.map(comic => {
+                return (
+                    <Link to={`/Comics/${comic.id}`} className='comic' key={comic.id}>
+                        <div className='comic-desc'>
+                            <h1>{comic.title}</h1>
+                        </div>
+                        <img src={comic.thumbnail.path + "." + comic.thumbnail.extension} alt='comic'/>
+                    </Link>
+                )
+            })
+
+            if (this.state.offset <= 0) {
+                return (
+                    <div>
+                        <SearchComic setTitle={this.setTitle} getComics={this.getSpecificComics}/>
+                        <button className='comic-button' onClick={this.getComics}>Next</button>
+                        <div className='all-comic-div'>
+                            {comics}
+                        </div>
+                        <button className='comic-button' onClick={this.getComics}>Next</button>
+                    </div>
+                )
+            } else {
+                return (
+                    <div>
+                        <SearchComic setTitle={this.setTitle} getComics={this.getSpecificComics}/>
+                        <button className='comic-button back' onClick={this.getBackComics}>Back</button>
+                        <button className='comic-button' onClick={this.getComics}>Next</button>
+                        <div className='all-comic-div'>
+                            {comics}
+                        </div>
+                        <button className='comic-button back' onClick={this.getBackComics}>Back</button>
+                        <button className='comic-button' onClick={this.getComics}>Next</button>
+                    </div>
+                )
+            }
         }
+        
+        return null;
         
     }
 }
