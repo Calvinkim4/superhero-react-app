@@ -3,6 +3,7 @@ import { Link } from 'react-router-dom';
 import SearchCharacter from './SearchCharacter';
 
 const apiKey = process.env.REACT_APP_MARVEL_KEY;
+const privateKey = process.env.REACT_APP_PRIVATE_KEY;
 
 class Characters extends Component {
     constructor(props) {
@@ -21,7 +22,7 @@ class Characters extends Component {
     }
 
     getCharacters() {
-        fetch(`https://gateway.marvel.com/v1/public/characters?orderBy=name&limit=${this.state.limit}&offset=${this.state.offset + 100}&apikey=${apiKey}`)
+        fetch(`https://gateway.marvel.com/v1/public/characters?orderBy=name&limit=${this.state.limit}&offset=${this.state.offset + 100}&apikey=${apiKey}&hash=${privateKey}`)
         .then(response => response.json())
           .then(data => {
             this.setState({
@@ -32,7 +33,7 @@ class Characters extends Component {
     }
 
     getBackCharacters() {
-        fetch(`https://gateway.marvel.com/v1/public/characters?orderBy=name&limit=${this.state.limit}&offset=${this.state.offset - 100}&apikey=${apiKey}`)
+        fetch(`https://gateway.marvel.com/v1/public/characters?orderBy=name&limit=${this.state.limit}&offset=${this.state.offset - 100}&apikey=${apiKey}&hash=${privateKey}`)
         .then(response => response.json())
           .then(data => {
             this.setState({
@@ -60,7 +61,7 @@ class Characters extends Component {
     getCharacter(event) {
         event.preventDefault();
 
-        fetch(`https://gateway.marvel.com/v1/public/characters?name=${this.state.characterName}&apikey=${apiKey}`)
+        fetch(`https://gateway.marvel.com/v1/public/characters?name=${this.state.characterName}&apikey=${apiKey}&hash=${privateKey}`)
         .then(response => response.json())
           .then(data => {
             this.setState({

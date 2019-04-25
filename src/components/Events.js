@@ -3,6 +3,7 @@ import { Link } from 'react-router-dom'
 import SearchEvent from './SearchEvent';
 
 const apiKey = process.env.REACT_APP_MARVEL_KEY;
+const privateKey = process.env.REACT_APP_PRIVATE_KEY;
 
 class Events extends Component {
     constructor(props) {
@@ -27,7 +28,7 @@ class Events extends Component {
     }
 
     getEvents() {
-        fetch(`https://gateway.marvel.com/v1/public/events?limit=${this.state.limit}&offset=${this.state.offset + 30}&apikey=${apiKey}`)
+        fetch(`https://gateway.marvel.com/v1/public/events?limit=${this.state.limit}&offset=${this.state.offset + 30}&apikey=${apiKey}&hash=${privateKey}`)
           .then(response => response.json())
           .then(data => {
             this.setState({
@@ -38,7 +39,7 @@ class Events extends Component {
     }
 
     getBackEvents() {
-        fetch(`https://gateway.marvel.com/v1/public/events?limit=${this.state.limit}&offset=${this.state.offset - 30}&apikey=${apiKey}`)
+        fetch(`https://gateway.marvel.com/v1/public/events?limit=${this.state.limit}&offset=${this.state.offset - 30}&apikey=${apiKey}&hash=${privateKey}`)
           .then(response => response.json())
           .then(data => {
             this.setState({
@@ -56,7 +57,7 @@ class Events extends Component {
     getSpecificEvents(event) {
         event.preventDefault();
 
-        let url = new URL (`https://gateway.marvel.com/v1/public/events?limit=${this.state.limit}&offset=${this.state.offset}&apikey=${apiKey}`);
+        let url = new URL (`https://gateway.marvel.com/v1/public/events?limit=${this.state.limit}&offset=${this.state.offset}&apikey=${apiKey}&hash=${privateKey}`);
         let params = new URLSearchParams(url.search.slice(1));
         params.append('name', this.state.title);
         url.search = new URLSearchParams(params)
