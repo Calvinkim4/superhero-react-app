@@ -21,7 +21,7 @@ class Characters extends Component {
     }
 
     getCharacters() {
-        fetch(`http://gateway.marvel.com/v1/public/characters?orderBy=name&limit=${this.state.limit}&offset=${this.state.offset + 100}&apikey=${apiKey}`)
+        fetch(`https://gateway.marvel.com/v1/public/characters?orderBy=name&limit=${this.state.limit}&offset=${this.state.offset + 100}&apikey=${apiKey}`)
         .then(response => response.json())
           .then(data => {
             this.setState({
@@ -32,7 +32,7 @@ class Characters extends Component {
     }
 
     getBackCharacters() {
-        fetch(`http://gateway.marvel.com/v1/public/characters?orderBy=name&limit=${this.state.limit}&offset=${this.state.offset - 100}&apikey=${apiKey}`)
+        fetch(`https://gateway.marvel.com/v1/public/characters?orderBy=name&limit=${this.state.limit}&offset=${this.state.offset - 100}&apikey=${apiKey}`)
         .then(response => response.json())
           .then(data => {
             this.setState({
@@ -60,7 +60,7 @@ class Characters extends Component {
     getCharacter(event) {
         event.preventDefault();
 
-        fetch(`http://gateway.marvel.com/v1/public/characters?name=${this.state.characterName}&apikey=${apiKey}`)
+        fetch(`https://gateway.marvel.com/v1/public/characters?name=${this.state.characterName}&apikey=${apiKey}`)
         .then(response => response.json())
           .then(data => {
             this.setState({
