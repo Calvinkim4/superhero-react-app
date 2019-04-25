@@ -1,6 +1,6 @@
 # superhero-react-app
 
-# deployed App
+# deployed app
 
 https://calvinkim4.github.io/superhero-react-app/
 

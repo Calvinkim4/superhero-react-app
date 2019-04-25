@@ -15,7 +15,7 @@ class SingleEvent extends Component {
     componentDidMount() {
         const { match: { params: { id } } } = this.props
 
-        fetch(`http://gateway.marvel.com/v1/public/events/${id}?apikey=${apiKey}`)
+        fetch(`https://gateway.marvel.com/v1/public/events/${id}?apikey=${apiKey}`)
         .then(response => response.json())
         .then(data => {
             this.setState({
