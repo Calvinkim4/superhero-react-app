@@ -18,7 +18,6 @@ class SingleCharacter extends Component {
         fetch(`https://gateway.marvel.com/v1/public/characters/${id}?apikey=${apiKey}`)
         .then(response => response.json())
         .then(data => {
-            console.log(data)
             this.setState({
                 title: data.data.results[0].name,
                 description: data.data.results[0].description,
