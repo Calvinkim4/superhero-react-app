@@ -56,7 +56,7 @@ div {
 }
 
 .marvel-logo {
-  width: 1000px;
+  width: 70%;
   height: auto;
 }
 
@@ -68,6 +68,7 @@ img {
 
 nav {
   display: flex;
+  flex-wrap: wrap;
   justify-content: center;
   margin: 30px;
   border: 2px solid white;
@@ -79,7 +80,7 @@ a {
   color: white;
   text-decoration: none;
   list-style: none;
-  font-size: 70px;
+  font-size: 65px;
 }
 
 li {
@@ -149,6 +150,15 @@ h2 {
   padding: 0;
 }
 
+@media screen and (max-width: 540px) {
+  .comic {
+    width: 90%;
+    height: auto;
+    border-radius: 5px;
+    padding: 0;
+  }
+}
+
 .comic:hover {
   background-color: #e0c541;
 }
@@ -210,15 +220,38 @@ input:focus {
   margin: 90px 40px;
 }
 
+@media screen and (max-width: 540px) {
+  .single-comic-div {
+    margin: 0 auto;
+  }
+}
+
 .single-comic-div > img {
   float: left;
+}
+
+@media screen and (max-width: 540px) {
+  .single-comic-div > img {
+    float: none;
+    width: 80%;
+    height: auto;
+  }
 }
 
 .single-comic-desc {
   float: right;
   width: 70%;
   height: 100%;
+}
 
+@media screen and (max-width: 540px) {
+  .single-comic-desc {
+    float: none;
+    width: 85%;
+    margin: 0 auto;
+    font-size: 30px;
+    line-height: 1.2;
+  }
 }
 
 .single-comic-desc > h1 {
