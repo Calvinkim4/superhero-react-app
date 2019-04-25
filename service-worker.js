@@ -14,7 +14,7 @@
 importScripts("https://storage.googleapis.com/workbox-cdn/releases/3.6.3/workbox-sw.js");
 
 importScripts(
-  "/Calvinkim4/superhero-react-app/precache-manifest.5c66fd32507277db5f1342ce3a95ab4b.js"
+  "/superhero-react-app/precache-manifest.109365ce7ce07d2bc84535c5ced67ec5.js"
 );
 
 workbox.clientsClaim();
@@ -28,7 +28,7 @@ self.__precacheManifest = [].concat(self.__precacheManifest || []);
 workbox.precaching.suppressWarnings();
 workbox.precaching.precacheAndRoute(self.__precacheManifest, {});
 
-workbox.routing.registerNavigationRoute("/Calvinkim4/superhero-react-app/index.html", {
+workbox.routing.registerNavigationRoute("/superhero-react-app/index.html", {
   
   blacklist: [/^\/_/,/\/[^\/]+\.[^\/]+$/],
 });
