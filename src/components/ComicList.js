@@ -27,7 +27,7 @@ class ComicList extends Component {
     }
 
     getComics() {
-        let url = new URL (`http://gateway.marvel.com/v1/public/comics?limit=${this.state.limit}&offset=${this.state.offset + 50}&apikey=${apiKey}`);
+        let url = new URL (`https://gateway.marvel.com/v1/public/comics?limit=${this.state.limit}&offset=${this.state.offset + 50}&apikey=${apiKey}`);
         fetch(url)
         .then(response => response.json())
         .then(data => {
@@ -39,7 +39,7 @@ class ComicList extends Component {
     }
 
     getBackComics() {
-        let url = new URL (`http://gateway.marvel.com/v1/public/comics?limit=${this.state.limit}&offset=${this.state.offset - 50}&apikey=${apiKey}`);
+        let url = new URL (`https://gateway.marvel.com/v1/public/comics?limit=${this.state.limit}&offset=${this.state.offset - 50}&apikey=${apiKey}`);
         fetch(url)
         .then(response => response.json())
         .then(data => {
@@ -57,7 +57,7 @@ class ComicList extends Component {
 
     getSpecificComics(event) {
         event.preventDefault();
-        let url = new URL (`http://gateway.marvel.com/v1/public/comics?limit=${this.state.limit}&offset=${this.state.offset}&apikey=${apiKey}`);
+        let url = new URL (`https://gateway.marvel.com/v1/public/comics?limit=${this.state.limit}&offset=${this.state.offset}&apikey=${apiKey}`);
         let params = new URLSearchParams(url.search.slice(1));
         params.append('title', this.state.title);
         url.search = new URLSearchParams(params)
