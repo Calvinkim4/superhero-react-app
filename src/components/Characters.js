@@ -5,6 +5,7 @@ import SearchCharacter from './SearchCharacter';
 const apiKey = process.env.REACT_APP_MARVEL_KEY;
 
 class Characters extends Component {
+    isCompMounted = false;
     constructor(props) {
         super(props);
         this.state = {
@@ -48,7 +49,12 @@ class Characters extends Component {
     }
 
     componentDidMount() {
+        this.isCompMounted = true;
         this.getCharacters();
+    }
+
+    componentWillUnmount() {
+        this.isCompMounted = false;
     }
 
     setCharacter(event) {
@@ -68,9 +74,12 @@ class Characters extends Component {
             fetch(`https://gateway.marvel.com/v1/public/characters?name=${this.state.characterName}&apikey=${apiKey}`)
                 .then(response => response.json())
                 .then(data => {
-                    this.setState({
-                        data: data.data.results
-                    })
+                    if (this.isCompMounted) {
+                        this.setState({
+                            data: data.data.results
+                        }) 
+                    }
+                    
                 })
         }
         
