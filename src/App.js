@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import './App.css';
-import { Route, Link } from 'react-router-dom';
+import { Route, Link, Redirect } from 'react-router-dom';
 import Home from './components/Home';
 import Characters from './components/Characters';
 import Events from './components/Events';
@@ -16,14 +16,15 @@ class App extends Component {
     return (
       <div className="App">
       <nav>
-        <Link to='/'><li>Home</li></Link>
+        <Link to='/Home'><li>Home</li></Link>
         <Link to='/Characters'><li>Characters</li></Link>
         <Link to='/Events'><li>Events</li></Link>
         <Link to='/Comics'><li>Comics</li></Link>
       </nav>
       
         <main>
-          <Route path='/' exact component={Home} />
+          <Route exact path="/" render={() => (<Redirect to="/Home"/>)}/>
+          <Route exact path='/Home' component={Home} />
           <Route exact path='/Characters' component={Characters} />
           <Route exact path='/Events' component={Events} />
           <Route exact path='/Comics' component={Comics} />
