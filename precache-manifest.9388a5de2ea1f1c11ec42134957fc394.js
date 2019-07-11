@@ -1,11 +1,11 @@
 self.__precacheManifest = [
   {
-    "revision": "39f5ee7f41304a0d9369",
+    "revision": "4e1735ad0a4773526d86",
     "url": "/superhero-react-app/static/css/main.cd51e55e.chunk.css"
   },
   {
-    "revision": "39f5ee7f41304a0d9369",
-    "url": "/superhero-react-app/static/js/main.99f82b9f.chunk.js"
+    "revision": "4e1735ad0a4773526d86",
+    "url": "/superhero-react-app/static/js/main.122b6602.chunk.js"
   },
   {
     "revision": "703e4afc160f44105063",
@@ -16,7 +16,7 @@ self.__precacheManifest = [
     "url": "/superhero-react-app/static/js/2.2d58c498.chunk.js"
   },
   {
-    "revision": "ec59f730c30eb4ff161afb5d5e588207",
+    "revision": "8790bf81ee5f70a9e7edc5ffc510fa51",
     "url": "/superhero-react-app/index.html"
   }
 ];
