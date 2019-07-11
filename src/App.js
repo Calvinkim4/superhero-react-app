@@ -16,22 +16,22 @@ class App extends Component {
     return (
       <div className="App">
       <nav>
-        <Link to='/Home'><li>Home</li></Link>
-        <Link to='/Characters'><li>Characters</li></Link>
-        <Link to='/Events'><li>Events</li></Link>
-        <Link to='/Comics'><li>Comics</li></Link>
+        <Link to='/superhero-react-app/Home'><li>Home</li></Link>
+        <Link to='/superhero-react-app/Characters'><li>Characters</li></Link>
+        <Link to='/superhero-react-app/Events'><li>Events</li></Link>
+        <Link to='/superhero-react-app/Comics'><li>Comics</li></Link>
       </nav>
       
         <main>
-          <Route exact path="/" render={() => (<Redirect to="/Home"/>)}/>
-          <Route exact path="/superhero-react-app" render={() => (<Redirect to="/Home"/>)}/>
-          <Route exact path='/Home' component={Home} />
-          <Route exact path='/Characters' component={Characters} />
-          <Route exact path='/Events' component={Events} />
-          <Route exact path='/Comics' component={Comics} />
-          <Route path='/Comics/:id' render={(props) => <SingleComic {...props} />} />
-          <Route path='/Events/:id' render={(props) => <SingleEvent {...props} />} />
-          <Route path='/Characters/:id' render={(props) => <SingleCharacter {...props} />} />
+          <Route exact path="/" render={() => (<Redirect to="/superhero-react-app/Home"/>)}/>
+          <Route exact path="/superhero-react-app" render={() => (<Redirect to="/superhero-react-app/Home"/>)}/>
+          <Route exact path='/superhero-react-app/Home' component={Home} />
+          <Route exact path='/superhero-react-app/Characters' component={Characters} />
+          <Route exact path='/superhero-react-app/Events' component={Events} />
+          <Route exact path='/superhero-react-app/Comics' component={Comics} />
+          <Route path='/superhero-react-app/Comics/:id' render={(props) => <SingleComic {...props} />} />
+          <Route path='/superhero-react-app/Events/:id' render={(props) => <SingleEvent {...props} />} />
+          <Route path='/superhero-react-app/Characters/:id' render={(props) => <SingleCharacter {...props} />} />
 
         </main>
       </div>
