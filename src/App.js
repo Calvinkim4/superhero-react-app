@@ -22,6 +22,7 @@ class App extends Component {
         <Link to='/superhero-react-app/Comics'><li>Comics</li></Link>
       </nav>
       
+      
         <main>
           <Route exact path='/superhero-react-app/' component={Home} />
           <Route exact path='/superhero-react-app/Characters' component={Characters} />
