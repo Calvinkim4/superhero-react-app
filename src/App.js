@@ -16,16 +16,14 @@ class App extends Component {
     return (
       <div className="App">
       <nav>
-        <Link to='/superhero-react-app/Home'><li>Home</li></Link>
+        <Link to='/superhero-react-app/'><li>Home</li></Link>
         <Link to='/superhero-react-app/Characters'><li>Characters</li></Link>
         <Link to='/superhero-react-app/Events'><li>Events</li></Link>
         <Link to='/superhero-react-app/Comics'><li>Comics</li></Link>
       </nav>
       
         <main>
-          <Route exact path="/" render={() => (<Redirect to="/superhero-react-app/Home"/>)}/>
-          <Route exact path="/superhero-react-app" render={() => (<Redirect to="/superhero-react-app/Home"/>)}/>
-          <Route exact path='/superhero-react-app/Home' component={Home} />
+          <Route exact path='/superhero-react-app/' component={Home} />
           <Route exact path='/superhero-react-app/Characters' component={Characters} />
           <Route exact path='/superhero-react-app/Events' component={Events} />
           <Route exact path='/superhero-react-app/Comics' component={Comics} />
