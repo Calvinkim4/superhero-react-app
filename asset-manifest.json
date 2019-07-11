@@ -1,13 +1,13 @@
 {
   "main.css": "/superhero-react-app/static/css/main.cd51e55e.chunk.css",
-  "main.js": "/superhero-react-app/static/js/main.122b6602.chunk.js",
-  "main.js.map": "/superhero-react-app/static/js/main.122b6602.chunk.js.map",
+  "main.js": "/superhero-react-app/static/js/main.69fbc639.chunk.js",
+  "main.js.map": "/superhero-react-app/static/js/main.69fbc639.chunk.js.map",
   "runtime~main.js": "/superhero-react-app/static/js/runtime~main.82c21ae2.js",
   "runtime~main.js.map": "/superhero-react-app/static/js/runtime~main.82c21ae2.js.map",
-  "static/js/2.2d58c498.chunk.js": "/superhero-react-app/static/js/2.2d58c498.chunk.js",
-  "static/js/2.2d58c498.chunk.js.map": "/superhero-react-app/static/js/2.2d58c498.chunk.js.map",
+  "static/js/2.cee0906b.chunk.js": "/superhero-react-app/static/js/2.cee0906b.chunk.js",
+  "static/js/2.cee0906b.chunk.js.map": "/superhero-react-app/static/js/2.cee0906b.chunk.js.map",
   "index.html": "/superhero-react-app/index.html",
-  "precache-manifest.9388a5de2ea1f1c11ec42134957fc394.js": "/superhero-react-app/precache-manifest.9388a5de2ea1f1c11ec42134957fc394.js",
+  "precache-manifest.505633e6a222ad4e43987d71c14e192b.js": "/superhero-react-app/precache-manifest.505633e6a222ad4e43987d71c14e192b.js",
   "service-worker.js": "/superhero-react-app/service-worker.js",
   "static/css/main.cd51e55e.chunk.css.map": "/superhero-react-app/static/css/main.cd51e55e.chunk.css.map"
 }
