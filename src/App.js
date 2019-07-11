@@ -24,6 +24,7 @@ class App extends Component {
       
         <main>
           <Route exact path="/" render={() => (<Redirect to="/Home"/>)}/>
+          <Route exact path="/superhero-react-app" render={() => (<Redirect to="/Home"/>)}/>
           <Route exact path='/Home' component={Home} />
           <Route exact path='/Characters' component={Characters} />
           <Route exact path='/Events' component={Events} />
