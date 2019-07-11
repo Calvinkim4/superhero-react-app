@@ -59,6 +59,8 @@ nav {
     overflow-x: scroll;
     overflow-y: hidden;
     white-space: nowrap;
+    background-color: #2a2b2b;
+    box-shadow: 1px 2px 15px 2px rgb(255, 255, 255);
   }
 }
 
@@ -139,7 +141,34 @@ h2 {
   padding: 0;
 }
 
-@media screen and (max-width: 540px) {
+@media screen and (max-width: 1200px) {
+  .comic {
+    width: 25%;
+    height: auto;
+    border-radius: 5px;
+    padding: 0;
+  }
+}
+
+@media screen and (max-width: 1000px) {
+  .comic {
+    width: 30%;
+    height: auto;
+    border-radius: 5px;
+    padding: 0;
+  }
+}
+
+@media screen and (max-width: 750px) {
+  .comic {
+    width: 50%;
+    height: auto;
+    border-radius: 5px;
+    padding: 0;
+  }
+}
+
+@media screen and (max-width: 500px) {
   .comic {
     width: 90%;
     height: auto;
@@ -163,7 +192,7 @@ h2 {
 }
 
 .comic-desc > h1 {
-  font-size: 40px;
+  font-size: 40%;
   padding: 10px;
   white-space: nowrap;
   overflow: hidden;
@@ -206,34 +235,43 @@ input:focus {
 }
 
 .single-comic-div {
-  margin: 90px 40px;
+  margin: 60px 40px;
+  height: 100vh;
 }
 
-@media screen and (max-width: 540px) {
+/* @media screen and (max-width: 1200px) {
   .single-comic-div {
     margin: 0 auto;
   }
-}
+} */
 
 .single-comic-div > img {
-  float: left;
+  /* float: left; */
+  height: 50%;
+  width: auto;
 }
 
-@media screen and (max-width: 540px) {
+@media screen and (max-width: 500px) {
   .single-comic-div > img {
-    float: none;
-    width: 80%;
-    height: auto;
+    height: 40%;
+    width: auto;
+  }
+}
+
+@media screen and (max-width: 400px) {
+  .single-comic-div > img {
+    height: 30%;
+    width: auto;
   }
 }
 
 .single-comic-desc {
-  float: right;
-  width: 70%;
-  height: 100%;
+  /* float: right; */
+  /* width: 70%; */
+  height: 40%;
 }
 
-@media screen and (max-width: 540px) {
+/* @media screen and (max-width: 1200px) {
   .single-comic-desc {
     float: none;
     width: 85%;
@@ -241,7 +279,7 @@ input:focus {
     font-size: 30px;
     line-height: 1.2;
   }
-}
+} */
 
 .single-comic-desc > h1 {
   font-size: 50px;
@@ -249,4 +287,35 @@ input:focus {
 
 .single-comic-desc > p {
   font-size: 30px; 
+  margin-bottom: 20px;
+}
+
+@media screen and (max-width: 1200px) {
+  .single-comic-desc > h1 {
+    font-size: 40px;
+  }
+
+  .single-comic-desc > p {
+    font-size: 25px; 
+  }
+}
+
+@media screen and (max-width: 900px) {
+  .single-comic-desc > h1 {
+    font-size: 35px;
+  }
+
+  .single-comic-desc > p {
+    font-size: 20px; 
+  }
+}
+
+@media screen and (max-width: 600px) {
+  .single-comic-desc > h1 {
+    font-size: 30px;
+  }
+
+  .single-comic-desc > p {
+    font-size: 20px; 
+  }
 }
